@@ -4,7 +4,7 @@ A visual, interactive guide to what happens inside your body during an extended 
 
 ## 🔗 Live Preview
 
-**[View the Timeline →](https://kiamia.github.io/7-day-fasting/)**
+**[View the Timeline →]([https://kiamia.github.io/7-day-fasting/](https://kiamia.github.io/7-Day-Fast/)/)**
 
 ## What’s Covered
 
