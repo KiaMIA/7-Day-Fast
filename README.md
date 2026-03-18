@@ -1,32 +1,429 @@
-# 7 Day Fasting — Stages of Fasting Timeline
+<!DOCTYPE html>
 
-A visual, interactive guide to what happens inside your body during an extended fast — from glycogen depletion at 12 hours through full regeneration at Day 7.
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fasting Stages Timeline</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-## 🔗 Live Preview
+body {
+background: #0a0c0f;
+color: #e8e4df;
+font-family: ‘DM Sans’, sans-serif;
+font-weight: 300;
+min-height: 100vh;
+overflow-x: hidden;
+}
 
-**[View the Timeline →](https://kiamia.github.io/7-Day-Fast/)**
+.grain {
+position: fixed;
+top: 0; left: 0; right: 0; bottom: 0;
+background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘noise’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23noise)’ opacity=‘0.03’/%3E%3C/svg%3E”);
+pointer-events: none;
+z-index: 100;
+}
 
-## What’s Covered
+.container {
+max-width: 900px;
+margin: 0 auto;
+padding: 60px 30px 80px;
+position: relative;
+}
 
-- **12 Hours** — Glycogen Depletion
-- **24 Hours** — Ketosis Onset
-- **48 Hours** — Deep Autophagy
-- **72 Hours** — Immune Reset
-- **Day 4** — Deep Ketosis & Repair
-- **Day 5** — Cellular Renewal
-- **Day 6** — Stem Cell Activation
-- **Day 7** — Full Regeneration Mode
+header {
+text-align: center;
+margin-bottom: 70px;
+animation: fadeIn 1s ease-out;
+}
 
-## About
+header h1 {
+font-family: ‘Cormorant Garamond’, serif;
+font-weight: 300;
+font-size: 3rem;
+letter-spacing: 0.08em;
+color: #f0ece6;
+margin-bottom: 12px;
+}
 
-Built as a single-page interactive timeline with smooth animations. No frameworks, no dependencies — just clean HTML and CSS.
+header p {
+font-size: 0.85rem;
+color: #d4789c;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+text-shadow: 0 0 20px rgba(212, 120, 156, 0.3);
+}
 
-## Disclaimer
+.timeline {
+position: relative;
+padding-left: 0;
+}
 
-This is for educational purposes only. Extended fasting should be undertaken with medical guidance. Electrolytes, hydration, and careful refeeding are essential for safety.
+.timeline::before {
+content: ‘’;
+position: absolute;
+left: 28px;
+top: 0;
+bottom: 0;
+width: 1px;
+background: linear-gradient(
+to bottom,
+transparent,
+#2a2520 5%,
+#4a3f35 50%,
+#2a2520 95%,
+transparent
+);
+}
 
-## License
+.stage {
+position: relative;
+padding-left: 80px;
+padding-bottom: 50px;
+opacity: 0;
+transform: translateY(20px);
+animation: slideIn 0.6s ease-out forwards;
+}
 
-This work is licensed under [Creative Commons Attribution-NonCommercial 4.0 International](./LICENSE).
+.stage:last-child { padding-bottom: 0; }
 
-© 2026 Kia Mia
+.stage:nth-child(1) { animation-delay: 0.15s; }
+.stage:nth-child(2) { animation-delay: 0.25s; }
+.stage:nth-child(3) { animation-delay: 0.35s; }
+.stage:nth-child(4) { animation-delay: 0.45s; }
+.stage:nth-child(5) { animation-delay: 0.55s; }
+.stage:nth-child(6) { animation-delay: 0.65s; }
+.stage:nth-child(7) { animation-delay: 0.75s; }
+.stage:nth-child(8) { animation-delay: 0.85s; }
+
+.node {
+position: absolute;
+left: 18px;
+top: 4px;
+width: 22px;
+height: 22px;
+border-radius: 50%;
+border: 1.5px solid;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.node::after {
+content: ‘’;
+width: 6px;
+height: 6px;
+border-radius: 50%;
+background: currentColor;
+}
+
+.stage:hover .node {
+transform: scale(1.3);
+}
+
+.hour-label {
+font-family: ‘Cormorant Garamond’, serif;
+font-weight: 500;
+font-size: 1.6rem;
+margin-bottom: 6px;
+letter-spacing: 0.02em;
+}
+
+.phase-name {
+font-size: 0.7rem;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+margin-bottom: 14px;
+opacity: 0.7;
+}
+
+.card {
+background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+border: 1px solid rgba(255,255,255,0.04);
+border-radius: 12px;
+padding: 20px 24px;
+backdrop-filter: blur(10px);
+transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.stage:hover .card {
+border-color: rgba(255,255,255,0.08);
+background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+}
+
+.detail-row {
+display: flex;
+gap: 8px;
+margin-bottom: 10px;
+align-items: baseline;
+line-height: 1.6;
+}
+
+.detail-row:last-child { margin-bottom: 0; }
+
+.detail-icon {
+flex-shrink: 0;
+font-size: 0.75rem;
+margin-top: 3px;
+opacity: 0.5;
+}
+
+.detail-text {
+font-size: 0.88rem;
+color: #b8b0a6;
+line-height: 1.6;
+}
+
+.highlight {
+color: #e8e4df;
+font-weight: 400;
+}
+
+/* Color themes per stage */
+.stage-1 .node { color: #7eb89a; border-color: #7eb89a; }
+.stage-1 .hour-label { color: #7eb89a; }
+
+.stage-2 .node { color: #6db3b3; border-color: #6db3b3; }
+.stage-2 .hour-label { color: #6db3b3; }
+
+.stage-3 .node { color: #8ba7d4; border-color: #8ba7d4; }
+.stage-3 .hour-label { color: #8ba7d4; }
+
+.stage-4 .node { color: #a48ec7; border-color: #a48ec7; }
+.stage-4 .hour-label { color: #a48ec7; }
+
+.stage-5 .node { color: #c48db0; border-color: #c48db0; }
+.stage-5 .hour-label { color: #c48db0; }
+
+.stage-6 .node { color: #d4a07a; border-color: #d4a07a; }
+.stage-6 .hour-label { color: #d4a07a; }
+
+.stage-7 .node { color: #d4b86a; border-color: #d4b86a; }
+.stage-7 .hour-label { color: #d4b86a; }
+
+.stage-8 .node { color: #e0c97a; border-color: #e0c97a; box-shadow: 0 0 15px rgba(224, 201, 122, 0.2); }
+.stage-8 .hour-label { color: #e0c97a; }
+
+.disclaimer {
+text-align: center;
+margin-top: 60px;
+padding-top: 30px;
+border-top: 1px solid rgba(255,255,255,0.04);
+font-size: 0.75rem;
+color: #4a4540;
+letter-spacing: 0.05em;
+line-height: 1.7;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(-10px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+.container { padding: 40px 18px 60px; }
+header h1 { font-size: 2.2rem; }
+.stage { padding-left: 65px; padding-bottom: 40px; }
+.hour-label { font-size: 1.3rem; }
+.card { padding: 16px 18px; }
+}
+</style>
+
+</head>
+<body>
+<div class="grain"></div>
+<div class="container">
+  <header>
+    <h1>Stages of Fasting</h1>
+    <p>How your body transforms over 7 days</p>
+  </header>
+
+  <div class="timeline">
+
+```
+<!-- 12 Hours -->
+<div class="stage stage-1">
+  <div class="node"></div>
+  <div class="hour-label">12 Hours</div>
+  <div class="phase-name">Glycogen Depletion</div>
+  <div class="card">
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text"><span class="highlight">Glycogen stores begin to empty.</span> Your body has burned through most of the glucose from your last meal and starts tapping liver glycogen.</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text"><span class="highlight">Insulin drops significantly,</span> signaling your body to switch fuel sources. Growth hormone begins a gradual rise.</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text">Early fat mobilization begins — free fatty acids start entering the bloodstream.</span>
+    </div>
+  </div>
+</div>
+
+<!-- 24 Hours -->
+<div class="stage stage-2">
+  <div class="node"></div>
+  <div class="hour-label">24 Hours</div>
+  <div class="phase-name">Ketosis Onset</div>
+  <div class="card">
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text"><span class="highlight">Ketosis begins.</span> Liver glycogen is largely depleted and your liver ramps up ketone body production (BHB, acetoacetate) from fatty acids.</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text"><span class="highlight">Autophagy activates.</span> With nutrient signaling quiet, your cells begin recycling damaged proteins and organelles for energy.</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text">Growth hormone surges — up to 2–3× baseline — to protect lean muscle during the fuel switch.</span>
+    </div>
+  </div>
+</div>
+
+<!-- 48 Hours -->
+<div class="stage stage-3">
+  <div class="node"></div>
+  <div class="hour-label">48 Hours</div>
+  <div class="phase-name">Deep Autophagy</div>
+  <div class="card">
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text"><span class="highlight">Autophagy intensifies significantly.</span> Your cells aggressively clear misfolded proteins, damaged mitochondria, and intracellular debris.</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text"><span class="highlight">Growth hormone peaks</span> — can reach up to 5× baseline levels, strongly preserving muscle mass while fat burning accelerates.</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text">Inflammation markers (CRP, IL-6) begin to drop. Many people report increased mental clarity as the brain adapts to ketone fuel.</span>
+    </div>
+  </div>
+</div>
+
+<!-- 72 Hours -->
+<div class="stage stage-4">
+  <div class="node"></div>
+  <div class="hour-label">72 Hours</div>
+  <div class="phase-name">Immune Reset</div>
+  <div class="card">
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text"><span class="highlight">Immune system regeneration begins.</span> Old and damaged white blood cells are broken down and recycled. Stem cell-based regeneration of new immune cells is triggered.</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text"><span class="highlight">IGF-1 drops substantially,</span> which is linked to reduced cancer risk, slower aging pathways, and enhanced cellular repair.</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text">Ketone levels are fully elevated. Your body is now efficiently running on fat as its primary fuel source.</span>
+    </div>
+  </div>
+</div>
+
+<!-- Day 4 -->
+<div class="stage stage-5">
+  <div class="node"></div>
+  <div class="hour-label">Day 4</div>
+  <div class="phase-name">Deep Ketosis &amp; Repair</div>
+  <div class="card">
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text"><span class="highlight">Fat adaptation is well established.</span> Hunger often fades significantly as your brain fully transitions to ketone metabolism.</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text"><span class="highlight">BDNF (brain-derived neurotrophic factor) increases,</span> supporting neural repair, synaptic plasticity, and cognitive function.</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text">Gut lining begins a rest-and-repair cycle. Intestinal stem cells become more active without the demands of constant digestion.</span>
+    </div>
+  </div>
+</div>
+
+<!-- Day 5 -->
+<div class="stage stage-6">
+  <div class="node"></div>
+  <div class="hour-label">Day 5</div>
+  <div class="phase-name">Cellular Renewal</div>
+  <div class="card">
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text"><span class="highlight">Peak autophagy window.</span> The body's cellular cleanup and recycling machinery is operating at maximum capacity.</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text"><span class="highlight">Insulin sensitivity is dramatically improved.</span> Cells become highly responsive to even trace amounts of insulin.</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text">Senescent ("zombie") cells — old cells that refuse to die and cause inflammation — become more vulnerable to clearance.</span>
+    </div>
+  </div>
+</div>
+
+<!-- Day 6 -->
+<div class="stage stage-7">
+  <div class="node"></div>
+  <div class="hour-label">Day 6</div>
+  <div class="phase-name">Stem Cell Activation</div>
+  <div class="card">
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text"><span class="highlight">Stem cell production increases.</span> Your body begins priming new cells to replace what autophagy has cleared, setting the stage for regeneration upon refeeding.</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text"><span class="highlight">Inflammatory markers reach their lowest point.</span> Systemic inflammation is significantly reduced across the body.</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text">Electrolyte management becomes critical — sodium, potassium, and magnesium need close attention at this stage.</span>
+    </div>
+  </div>
+</div>
+
+<!-- Day 7 -->
+<div class="stage stage-8">
+  <div class="node"></div>
+  <div class="hour-label">Day 7</div>
+  <div class="phase-name">Full Regeneration Mode</div>
+  <div class="card">
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text"><span class="highlight">The body is primed for total renewal.</span> When you refeed, stem cells flood the system to rebuild the immune system, gut lining, and other tissues from the ground up.</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text"><span class="highlight">Gene expression has shifted.</span> Longevity-associated genes (sirtuins, FOXO) are upregulated. Pro-aging and pro-inflammatory pathways are suppressed.</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-icon">◆</span>
+      <span class="detail-text">Refeeding strategy matters enormously at this point — breaking the fast with bone broth or gentle foods protects the gut and maximizes the regenerative window.</span>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <div class="disclaimer">
+    Extended fasting should be undertaken with medical guidance.<br>
+    Electrolytes, hydration, and careful refeeding are essential for safety.
+  </div>
+</div>
+</body>
+</html>
