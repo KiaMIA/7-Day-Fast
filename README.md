@@ -1,6 +1,6 @@
 # 7 Day Fasting — Stages of Fasting Timeline
 
-A visual, interactive guide to what happens inside your body during an extended fast — from glycogen depletion at 12 hours through full regeneration at Day 7.
+A visual, interactive guide to what happens inside your body during an extended fast, from glycogen depletion at 12 hours through full regeneration at Day 7.
 
 ## 🔗 Live Preview
 
@@ -19,7 +19,7 @@ A visual, interactive guide to what happens inside your body during an extended 
 
 ## About
 
-Built as a single-page interactive timeline with smooth animations. No frameworks, no dependencies — just clean HTML and CSS.
+Built as a single-page interactive timeline with smooth animations. No frameworks/dependencies. Simply clean HTML and CSS.
 
 ## Disclaimer
 
